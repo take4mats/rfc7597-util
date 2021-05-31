@@ -1,4 +1,4 @@
-# MAP-E_tool (as of 2018/03/23)
+# RFC7597 (MAP-E) tool
 This can calculate RFC7597 or draft-ietf-softwire-map-03 mapping between IPv4_A+P and IPv6.  This is going to be a Sinatra-based web app.  You can also use as a CLI tool.
 
 NOTE: This is for MAP-E shared address type.  If you are looking for dedicated IP lookup, go to other tool.
@@ -9,28 +9,24 @@ Here is the result of `bundle exec rake routes`:
 ```
 GET    /
 GET    /webui
-GET    /webui/map_rules               # アドレスシェアのルール 一覧
-GET    /webui/lookup                  # 4-6変換するwebui
-GET    /webui/your_bmr?addr6=x        # アドレスシェアのルール にマッチする 6 を叩けば詳細情報が返ってくる
-GET    /api/your_ipv6?addr4=x&port=y  # アドレスシェアのルール にマッチする 4のaddr+port を叩けば ipv6 が返ってくる
-GET    /api/your_ipv4?addr6=x         # アドレスシェアのルール にマッチする 6 pref を叩けば IPv4 と port rangeが返ってくる
-GET    /api/your_bmr?addr6=x          # アドレスシェアのルール にマッチする 6 を叩けば詳細情報が返ってくる
-GET    /api/map_rules                 # アドレスシェアのルール 一覧
-POST   /api/provider/?                # 一定の中身を post すると MAP-E の設計情報が返ってくる。 expert向け
+GET    /webui/map_rules
+GET    /webui/lookup
+GET    /webui/your_bmr?addr6=x
+GET    /api/your_ipv6?addr4=x&port=y
+GET    /api/your_ipv4?addr6=x
+GET    /api/your_bmr?addr6=x
+GET    /api/map_rules
+POST   /api/provider/?
 ```
 
 ## Installation (Development)
-- install `ruby 2.3.3` somehow (2.x なら多分動くけど, 変えるなら Gemfile 編集してください, 本当は最新にしたい)
-  `ruby -v` コマンドでバージョン確認
+- install `ruby 2.3.3` somehow (or make it up-to-date by resolving dependencies)
+- `ruby -v`
 - install `bundler`
   ```sh
   gem install bundler
   ```
-- get `map-e` (コレ読んでるならもう持ってますね)
-  ```sh
-  git clone path/to/repository/map-e.git  # or exec tar command in case of .tar.gz package
-  cd map-e/
-  ```
+- get this repository
 - use bundler to install gems under this project
   ```sh
   bundle install --path=.bundle
@@ -38,39 +34,37 @@ POST   /api/provider/?                # 一定の中身を post すると MAP-E 
 - start a webserver bundled to `rack`
   ```sh
   $ bundle exec rackup
-  # 以下のログが出ていれば、port 9292 で上がっている
   [2018-03-20 10:27:31] INFO  WEBrick 1.3.1
   [2018-03-20 10:27:31] INFO  ruby 2.3.3 (2016-11-21)
   [2018-03-20 10:27:31] INFO  WEBrick::HTTPServer#start: pid=66791 port=9292
   ```
-- done!  http://localhost:9292 にアクセス。
+- done!  Visit http://localhost:9292
 
 ---
 
-## Installation (Production)
+## Installation (running on remote Linux server)
 - 前提:
   - OS: CentOS7.4
-    - 任意のテンプレートで構築
   - ruby 2.3.3 (rbenv でインストール)
     - gem, bundler
 
-- map-e tool のインストール
+- install this project
   ```sh
     cd ~/
-    git clone /usr/local/repository/map-e.git
-    cd ~/map-e/
+    git clone /path/to/this-repo.git
+    cd ~/this-repo
     bundle install --path=.bundle --without development test
   ```
-- apache インストール: 省略
-- passenger インストール
+- install Apache
+- install Passenger
   ```sh
     gem install passenger
     sudo chmod o+x "/home/webadmin"
-    sudo ln -sv ~/map-e/public /var/www/html/map-e
+    sudo ln -sv ~/rfc7597-util/public /var/www/html/rfc7597-util
     passenger-install-apache2-module
-      -> 実行後、設問はすべてenterを入力, 一部メモ
+      -> Press `Enter` for all the questions
   ```
-- `/etc/httpd/conf.d/passenger.conf` を作成する。細かいところは環境に応じて修正してほしいが、 passenger-install-apache2-module の途中でしたメモを活用して作っていく:
+- configure on `/etc/httpd/conf.d/passenger.conf`. Refer to the following memo written during the process of `passenger-install-apache2-module`:
   ```apache
     LoadModule passenger_module /home/webadmin/.rbenv/versions/2.3.3/lib/ruby/gems/2.3.0/gems/passenger-5.2.1/buildout/apache2/mod_passenger.so
     <IfModule mod_passenger.c>
@@ -78,9 +72,9 @@ POST   /api/provider/?                # 一定の中身を post すると MAP-E 
       PassengerDefaultRuby /home/webadmin/.rbenv/versions/2.3.3/bin/ruby
     </IfModule>
 
-    RackBaseURI /map-e
+    RackBaseURI /rfc7597-util
     RackEnv production
-    <Directory /map-e>
+    <Directory /rfc7597-util>
       Options ExecCGI FollowSymLinks
       Options -MultiViews
       AllowOverride All
@@ -88,13 +82,13 @@ POST   /api/provider/?                # 一定の中身を post すると MAP-E 
       Allow From All
     </Directory>
 
-    # 必要なら Passenger が追加するHTTPヘッダを削除するための設定。
+    # If needed, remove following HTTP header added by Passenger
     Header always unset "X-Powered-By"
     Header always unset "X-Rack-Cache"
     Header always unset "X-Content-Digest"
     Header always unset "X-Runtime"
 
-    # 必要ならこの辺も
+    # Do these if needed
     PassengerMaxPoolSize 20
     PassengerMaxInstancesPerApp 4
     PassengerPoolIdleTime 3600
@@ -102,11 +96,13 @@ POST   /api/provider/?                # 一定の中身を post すると MAP-E 
     PassengerStatThrottleRate 10
   ```
 
-- configtest してから apache 再起動して利用開始
+- Do configtest and then restart apache
   ```sh
   sudo service httpd configtest
   sudo service httpd restart
   ```
+
+- well, now everything should be ready!
 
 ---
 
@@ -134,7 +130,7 @@ POST   /api/provider/?                # 一定の中身を post すると MAP-E 
   ```
 
 ### CLI usage example
-map-e.rb ライブラリを直接叩く/本ツール以外に使いまわすなら、の参考. 詳細の使い方は rspec test (`spec/lib/map-e_spec.rb` etc.) を見るか library 直接見てね
+You can use map-e.rb library directly. In this case, please check rspec test (`spec/lib/map-e_spec.rb` etc.) the code itself to understand its specification.
   ```ruby
   require 'path/to/lib/map-e.rb'
 
@@ -161,9 +157,9 @@ map-e.rb ライブラリを直接叩く/本ツール以外に使いまわすな�
 
 ### Others
 - library
-  - 必要最小限の gem (IPAddress 0.8.3 がキー)
-    - ユーザ環境に install しない。 必ず `bundle install --path=xxx` を指定
-  - ~~自前の monkey-patch : myipaddress~~ 結局本toolには使っていない (アドレス設計時に利用した)
+  - minimum gem (IPAddress 0.8.3 がキー)
+    - Make sure to specify where to install the gems: `bundle install --path=xxx`
+  - ~~自前の monkey-patch : myipaddress~~ 結局本toolには使っていない (アドレス設計などでお遊びした)
 - what to learn:
   - Ruby, sinatra, RSpec, Rack::Test, WebAPI, IPv6, MAP-E, phusion-passenger, linux, git
 - directory structure (`tree -FL 3 map-e`)
