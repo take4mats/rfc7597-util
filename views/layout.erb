@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title><%= @title %></title>
+
+  <!--
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
+  <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  -->
+  <script src=<%= url('/js/jquery-3.3.1.min.js') %>></script>
+  <script src=<%= url('/js/bootstrap-3.3.7.min.js') %>></script>
+  <link rel="stylesheet" href=<%= url('/css/bootstrap-3.3.7.min.css') %>>
+
+</head>
+
+<body>
+  <div id="wrap">
+
+    <!-- navigation bar -->
+    <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href=<%= url('/webui') %>>MAP-E (shared)</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li> <a href=<%= url('/webui/map_rules') %>>map_rules</a> </li>
+          <li> <a href=<%= url('/webui/lookup') %>>lookup</a> </li>
+          <li> <a href=<%= url('/webui/your_bmr') %>>your_bmr</a> </li>
+        </ul>
+      </div>
+    </div>
+    </nav>
+
+    <!-- content -->
+    <div class="container-fluid">
+      <code class="bg-danger">NOTE: This is for MAP-E shared address type.  If you are looking for dedicated IP lookup, go to other tool.</code>
+
+      <%= yield %>
+    </div>
+  </div>
+</body>
+</html>

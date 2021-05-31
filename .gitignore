@@ -1,0 +1,27 @@
+/coverage
+
+/log/*.log
+/tmp/*
+
+*.swp
+*~
+.DS_Store
+
+# these should all be checked in to normalize the environment:
+# Gemfile.lock, .ruby-version, .ruby-gemset
+
+## Environment normalization:
+/.bundle
+/vendor/bundle
+
+# dotenv
+# TODO Comment out this rule if environment variables can be committed
+# .env
+
+# Ignore Byebug command history file.
+.byebug_history
+.rspec
+
+# Only include if you have production secrets in this file, which is no longer a Rails default
+# config/secrets.yml
+.secret

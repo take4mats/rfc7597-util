@@ -1,0 +1,36 @@
+<table class="table table-bordered table-dark">
+  <thead>
+    <tr>
+      <th scope="col">IPv6</th>
+      <th scope="col">IPv4</th>
+      <th scope="col">EA-bit length</th>
+      <th scope="col">PSID offset</th>
+      <th scope="col">BR IPv6 Address</th>
+      <th scope="col">Area</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @map_rules.each do |rule| %>
+      <tr>
+        <td scope="row">
+          <%= IPAddress("#{rule[:ipv6_prefix]}/#{rule[:ipv6_prefix_length]}").to_string %>
+        </td>
+        <td scope="row">
+          <%= "#{rule[:ipv4_prefix]}/#{rule[:ipv4_prefix_length]}" %>
+        </td>
+        <td scope="row">
+          <%= rule[:ea_bit_length] %>
+        </td>
+        <td scope="row">
+          <%= rule[:psid_offset_rule] %>
+        </td>
+        <td scope="row">
+          <%= rule[:br_ipv6_address] %>
+        </td>
+        <td scope="row">
+          <%= rule[:area] %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

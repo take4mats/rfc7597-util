@@ -1,0 +1,76 @@
+<form class="form-inline" method="get">
+  <div class="form-group well bs-component">
+    <label for="addr6">Your IPv6 prefix: &nbsp</label>
+    <input type="text" class="form-control" id="addr6" placeholder="2400:4050:0:300::/56" name="addr6" style="width:40ch;" <%= "value=#{params[:addr6]}" unless params[:addr6].nil? %> >
+    <button type="submit" class="btn btn-success">Submit</button>
+    <span class="help-block">Anything within your /56 will work <i>(e.g. 2400:4050:0:3d00::/56, 2400:4050:0:3d00::, 2400:4050:0:3d00:99:f000:0:3d00)</i></span>
+  </div>
+</form>
+<hr>
+
+<% if @rule %>
+<h2>Your Basic Mapping Rule</h2>
+<dl class="dl-horizontal">
+  <dt>BR IPv6 Address</dt>
+  <dd><code><%= @rule[:br_ipv6_address] %></code></dd>
+
+  <dt>Rule IPv6 Prefix</dt>
+  <dd><code><%= IPAddress("#{@rule[:ipv6_prefix]}/#{@rule[:ipv6_prefix_length]}").to_string %></code></dd>
+
+  <dt>Rule IPv4 Prefix</dt>
+  <dd><code><%= IPAddress("#{@rule[:ipv4_prefix]}/#{@rule[:ipv4_prefix_length]}").to_string %></code></dd>
+
+  <dt>EA-bit length	</dt>
+  <dd><code><%= @rule[:ea_bit_length] %></code></dd>
+
+  <dt>PSID offset</dt>
+  <dd><code><%= @rule[:psid_offset_rule] %></code></dd>
+</dl>
+
+<h2>Your Mapping Info</h2>
+<dl class="dl-horizontal">
+  <dt>Your IPv6 Prefix</dt>
+  <dd><code><%= @mapping_info[:pref6] %></code></dd>
+
+  <dt>Your IPv4 Address</dt>
+  <dd><code><%= @mapping_info[:addr4] %></code></dd>
+
+  <dt>Your PSID</dt>
+  <dd><code><%= @mapping_info[:psid] %></code></dd>
+
+  <dt>Your Port Range</dt>
+  <dd><code><%= @mapping_info[:port_range] %></code></dd>
+</dl>
+
+<h2>Port Assignment Map</h2>
+<p><span class="bg-primary"> reserved </span>, <span class="bg-danger"> your port </span>, x: PSID bits, y: offset area bits</p>
+<% @mapping_info[:ports].each do |port| %>
+<% end %>
+
+<table class="table table-bordered table-dark">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <% (0..(2**@map.psid_len - 1)).each do |x| %>
+        <th scope="col"> <%= x.to_s(2).rjust(@map.psid_len, '0') %> </th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% (0..(2**@map.psid_offset - 1)).each do |y| %>
+      <tr>
+        <th scope="row"> <%= y.to_s(2).rjust(@map.psid_offset, '0') %> </th>
+        <% (0..(2**@map.psid_len - 1)).each do |x| %>
+          <% if y == 0 %>
+            <% c = "bg-primary" %>
+          <% else %>
+            <% c = (x == @mapping_info[:psid]) ? "bg-danger" : "" %>
+          <% end %>
+          <% z0 = y * 2**(@map.psid_len + @map.free_port_bit_len) + x * 2**@map.free_port_bit_len %>
+          <td class="<%= c %>" scope="row"> <%= "#{z0}-#{z0 + 2**@map.free_port_bit_len - 1}" %> </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>

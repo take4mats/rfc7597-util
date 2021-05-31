@@ -1,0 +1,94 @@
+<h3>IPv4 Address+Port -> MAP CE IPv6 Address</h3>
+<div class="well bs-component">
+  <form class="form-inline">
+    <div class="form-group">
+      <label for="addr4">IPv4 address: </label>
+      <input type="text" class="form-control" id="addr4" style="width:20ch;" value="153.240.0.0">
+      &nbsp
+      <label for="port">Port number: </label>
+      <input type="text" class="form-control" id="port" style="width:10ch;" value="2000">
+      &nbsp
+      <input type="button" class="btn btn-success" id="your_ipv6" value="Lookup IPv6">
+      <input type="button" class="btn btn-primary" id="clear_ipv6" value="Clear">
+      <span class="help-block">Need both your IP address and port number <i>(e.g. 153.240.0.0:2000)</i></span>
+    </div>
+  </form>
+  <div id="result_ipv6"></div>
+</div>
+
+<h3>IPv6 Address -> IPv4 Address+Port</h3>
+<div class="well bs-component">
+  <form class="form-inline">
+    <div class="form-group">
+      <label for="addr6">IPv6 address: </label>
+      <input type="text" class="form-control" id="addr6" style="width:40ch;" value="2400:4050:0:3d00:99:f000:0:3d00">
+      &nbsp
+      <input type="button" class="btn btn-danger" id="your_ipv4" value="Lookup IPv4">
+      <input type="button" class="btn btn-primary" id="clear_ipv4" value="Clear">
+      <span class="help-block">Anything within your /56 will work <i>(e.g. 2400:4050:0:3d00::/56, 2400:4050:0:3d00::, 2400:4050:0:3d00:99:f000:0:3d00)</i></span>
+    </div>
+  </form>
+  <div id="result_ipv4"></div>
+</div>
+
+<script>
+  $(function() {
+    $("#your_ipv6").click(function(){
+      var addr4 = $("#addr4").val();
+      var port = $("#port").val();
+
+      $.ajax({
+        url: "<%= url('/api/your_ipv6') %>" + '?addr4=' + addr4 + '&port=' + port,
+        type: "GET",
+        dataType: "json",
+        success: function(json){
+          $("#result_ipv6")
+            .html("<code>IPv6 address: " + json.ipv6_address + "</code>"
+              + "<br><code>MAP CE IPv6 address: " + json.map_ce_ipv6_address + "</code>"
+              + "<br>"
+              + "<form action=<%= url('/webui/your_bmr?') %> method='get'>"
+              + "  <input type='hidden' name='addr6' value='" + json.ipv6_address + "'>"
+              + "  <button type='submit' class='btn btn-info'>Detail</button>"
+              + "</form>"
+          );
+        },
+        error: function() {
+          $("#result_ipv6").html("error");
+        }
+      });
+    });
+
+    $("#clear_ipv6").click(function(){
+      $("#result_ipv6").html("");
+    });
+
+    $("#your_ipv4").click(function(){
+      var addr6 = $("#addr6").val();
+
+      $.ajax({
+        url: "<%= url('/api/your_ipv4') %>" + '?addr6=' + addr6,
+        type: "GET",
+        dataType: "json",
+        success: function(json){
+          $("#result_ipv4")
+            .html("<code>IPv4 address: " + json.ipv4_address + "</code>"
+              + "<br><code>PSID: " + json.psid + "</code>"
+              + "<br><code>Ports: " + JSON.stringify(json.ports, null, 2) + "</code>"
+              + "<br>"
+              + "<form action=<%= url('/webui/your_bmr?') %> method='get'>"
+              + "  <input type='hidden' name='addr6' value='" + addr6 + "'>"
+              + "  <button type='submit' class='btn btn-info'>Detail</button>"
+              + "</form>"
+            );
+        },
+        error: function(json) {
+          $("#result_ipv4").html(JSON.stringify(json, null, 2));
+        }
+      });
+    });
+
+    $("#clear_ipv4").click(function(){
+      $("#result_ipv4").html("");
+    });
+  });
+</script>

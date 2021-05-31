@@ -1,0 +1,44 @@
+{
+  "basic_map_rules": [
+    {
+      "br_ipv6_address": "2001:db8:ffff::1",
+      "ea_bit_length": "24",
+      "ipv4_prefix": "10.240.0.0",
+      "ipv4_prefix_length": "14",
+      "ipv6_prefix": "2001:db8:0000::",
+      "ipv6_prefix_length": "32",
+      "psid_offset_rule": "6",
+      "area": "area01"
+    },
+    {
+      "br_ipv6_address": "2001:db8:ffff::1",
+      "ea_bit_length": "20",
+      "ipv4_prefix": "10.146.64.0",
+      "ipv4_prefix_length": "18",
+      "ipv6_prefix": "2001:db8:2000::",
+      "ipv6_prefix_length": "36",
+      "psid_offset_rule": "6",
+      "area": "area02"
+    },
+    {
+      "br_ipv6_address": "2001:db8:ffff::1",
+      "ea_bit_length": "20",
+      "ipv4_prefix": "10.148.192.0",
+      "ipv4_prefix_length": "18",
+      "ipv6_prefix": "2001:db8:3000::",
+      "ipv6_prefix_length": "36",
+      "psid_offset_rule": "6",
+      "area": "area03"
+    },
+    {
+      "br_ipv6_address": "2001:db8:ffff::1",
+      "ea_bit_length": "20",
+      "ipv4_prefix": "10.150.192.0",
+      "ipv4_prefix_length": "18",
+      "ipv6_prefix": "2001:db8:4000::",
+      "ipv6_prefix_length": "36",
+      "psid_offset_rule": "6",
+      "area": "area04"
+    }
+  ]
+}
