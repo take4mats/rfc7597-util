@@ -1,9 +1,9 @@
 <form class="form-inline" method="get">
   <div class="form-group well bs-component">
     <label for="addr6">Your IPv6 prefix: &nbsp</label>
-    <input type="text" class="form-control" id="addr6" placeholder="2400:4050:0:300::/56" name="addr6" style="width:40ch;" <%= "value=#{params[:addr6]}" unless params[:addr6].nil? %> >
+    <input type="text" class="form-control" id="addr6" placeholder="2001:db8:0:300::/56" name="addr6" style="width:40ch;" <%= "value=#{params[:addr6]}" unless params[:addr6].nil? %> >
     <button type="submit" class="btn btn-success">Submit</button>
-    <span class="help-block">Anything within your /56 will work <i>(e.g. 2400:4050:0:3d00::/56, 2400:4050:0:3d00::, 2400:4050:0:3d00:99:f000:0:3d00)</i></span>
+    <span class="help-block">Anything within your /56 will work <i>(e.g. 2001:db8:0:3d00::/56, 2001:db8:0:3d00::, 2001:db8:0:3d00:99:f000:0:3d00)</i></span>
   </div>
 </form>
 <hr>

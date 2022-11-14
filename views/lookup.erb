@@ -3,14 +3,14 @@
   <form class="form-inline">
     <div class="form-group">
       <label for="addr4">IPv4 address: </label>
-      <input type="text" class="form-control" id="addr4" style="width:20ch;" value="153.240.0.0">
+      <input type="text" class="form-control" id="addr4" style="width:20ch;" value="10.240.0.0">
       &nbsp
       <label for="port">Port number: </label>
       <input type="text" class="form-control" id="port" style="width:10ch;" value="2000">
       &nbsp
       <input type="button" class="btn btn-success" id="your_ipv6" value="Lookup IPv6">
       <input type="button" class="btn btn-primary" id="clear_ipv6" value="Clear">
-      <span class="help-block">Need both your IP address and port number <i>(e.g. 153.240.0.0:2000)</i></span>
+      <span class="help-block">Need both your IP address and port number <i>(e.g. 10.240.0.0:2000)</i></span>
     </div>
   </form>
   <div id="result_ipv6"></div>
@@ -21,11 +21,11 @@
   <form class="form-inline">
     <div class="form-group">
       <label for="addr6">IPv6 address: </label>
-      <input type="text" class="form-control" id="addr6" style="width:40ch;" value="2400:4050:0:3d00:99:f000:0:3d00">
+      <input type="text" class="form-control" id="addr6" style="width:40ch;" value="2001:db8:0:3d00:99:f000:0:3d00">
       &nbsp
       <input type="button" class="btn btn-danger" id="your_ipv4" value="Lookup IPv4">
       <input type="button" class="btn btn-primary" id="clear_ipv4" value="Clear">
-      <span class="help-block">Anything within your /56 will work <i>(e.g. 2400:4050:0:3d00::/56, 2400:4050:0:3d00::, 2400:4050:0:3d00:99:f000:0:3d00)</i></span>
+      <span class="help-block">Anything within your /56 will work <i>(e.g. 2001:db8:0:3d00::/56, 2001:db8:0:3d00::, 2001:db8:0:3d00:99:f000:0:3d00)</i></span>
     </div>
   </form>
   <div id="result_ipv4"></div>
