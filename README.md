@@ -20,7 +20,7 @@ POST   /api/provider/?
 ```
 
 ## Installation (Development)
-- install `ruby 2.3.3` somehow (or make it up-to-date by resolving dependencies)
+- install `ruby 3.1.2` somehow (or make it up-to-date by resolving dependencies)
 - `ruby -v`
 - install `bundler`
   ```sh
@@ -35,7 +35,7 @@ POST   /api/provider/?
   ```sh
   $ bundle exec rackup
   [2018-03-20 10:27:31] INFO  WEBrick 1.3.1
-  [2018-03-20 10:27:31] INFO  ruby 2.3.3 (2016-11-21)
+  [2018-03-20 10:27:31] INFO  ruby 3.1.2 (2016-11-21)
   [2018-03-20 10:27:31] INFO  WEBrick::HTTPServer#start: pid=66791 port=9292
   ```
 - done!  Visit http://localhost:9292
@@ -43,6 +43,9 @@ POST   /api/provider/?
 ---
 
 ## Installation (running on remote Linux server)
+
+WARNING: This instruction is still based on deprecated environment, which needs to be updated in the future.
+
 - 前提:
   - OS: CentOS7.4
   - ruby 2.3.3 (rbenv でインストール)
@@ -157,7 +160,7 @@ You can use map-e.rb library directly. In this case, please check rspec test (`s
 
 ### Others
 - library
-  - minimum gem (IPAddress 0.8.3 がキー)
+  - minimum gem (IPAddress library がキー)
     - Make sure to specify where to install the gems: `bundle install --path=xxx`
   - ~~自前の monkey-patch : myipaddress~~ 結局本toolには使っていない (アドレス設計などでお遊びした)
 - what to learn:
@@ -180,7 +183,7 @@ You can use map-e.rb library directly. In this case, please check rspec test (`s
   |   |-- css/
   |   |   `-- bootstrap.min.css
   |   `-- js/
-  |       |-- jquery-3.3.1.min.js
+  |       |-- jquery-x.y.z.min.js
   |       `-- lookup.js
   |-- spec/  # for tests
   |   |-- lib/
