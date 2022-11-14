@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe MapeWebApp do
-  let(:pref6) { '2400:4050:0:3d00::/56' }
-  let(:addr6) { '2400:4050:0:3d00::' }
-  let(:map_ce_addr6) { '2400:4050:0:3d00:99:f000:0:3d00' }
-  let(:addr4) { '153.240.0.0' }
+  let(:pref6) { '2001:db8:0:3d00::/56' }
+  let(:addr6) { '2001:db8:0:3d00::' }
+  let(:map_ce_addr6) { '2001:db8:0:3d00:a:f000:0:3d00' }
+  let(:addr4) { '10.240.0.0' }
   let(:port) { 2000 }
   let(:psid) { 61 }
 
