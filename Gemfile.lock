@@ -39,7 +39,7 @@ GEM
       method_source (~> 1.0)
     puma (6.0.0)
       nio4r (~> 2.0)
-    rack (2.2.4)
+    rack (2.2.7)
     rack-protection (3.0.3)
       rack
     rack-test (2.0.2)
@@ -88,6 +88,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-22
+  x86_64-linux
 
 DEPENDENCIES
   guard (~> 2.18.0)
