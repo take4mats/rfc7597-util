@@ -1,7 +1,7 @@
 ruby '3.1.2'
 source 'https://rubygems.org'
 
-gem 'rake', '~> 13.0.6'
+gem 'rake', '~> 13.1.0'
 gem 'sinatra', '~> 3.0.3'
 gem 'sinatra-contrib', '~> 3.0.3'
 
