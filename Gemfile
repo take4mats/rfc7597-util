@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 
 gem 'rake', '~> 13.0.6'
 gem 'sinatra', '~> 3.0.3'
-gem 'sinatra-contrib', '~> 3.0.3'
+gem 'sinatra-contrib', '~> 3.2.0'
 
 gem 'ipaddress', '~> 0.8.3'
 
