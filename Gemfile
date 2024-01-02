@@ -12,7 +12,7 @@ group :development, :test do
   gem 'puma', '~> 6.0.0'
   gem 'rspec', '~> 3.12.0'
   gem 'rspec-its', '~> 1.3.0'
-  gem 'rack-test', '~> 2.0.2'
+  gem 'rack-test', '~> 2.1.0'
   gem 'guard', '~> 2.18.0'
   gem 'guard-rspec', '~> 4.7.3'
   gem 'simplecov', '~> 0.21.2'
