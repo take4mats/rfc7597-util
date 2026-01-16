@@ -13,7 +13,7 @@ group :development, :test do
   gem 'rspec', '~> 3.12.0'
   gem 'rspec-its', '~> 1.3.0'
   gem 'rack-test', '~> 2.1.0'
-  gem 'guard', '~> 2.18.0'
+  gem 'guard', '~> 2.20.0'
   gem 'guard-rspec', '~> 4.7.3'
   gem 'simplecov', '~> 0.22.0'
 end
