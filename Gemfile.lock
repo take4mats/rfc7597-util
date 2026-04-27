@@ -39,7 +39,7 @@ GEM
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
-    puma (6.4.3)
+    puma (8.0.1)
       nio4r (~> 2.0)
     rack (3.2.5)
     rack-protection (4.2.1)
@@ -103,7 +103,7 @@ DEPENDENCIES
   guard (~> 2.18.0)
   guard-rspec (~> 4.7.3)
   ipaddress (~> 0.8.3)
-  puma (~> 6.4.0)
+  puma (~> 8.0.0)
   rack-test (~> 2.1.0)
   rake (~> 13.3.0)
   rspec (~> 3.13.0)
@@ -113,7 +113,7 @@ DEPENDENCIES
   sinatra-contrib (~> 4.2.0)
 
 RUBY VERSION
-   ruby 3.4.8p72
+   ruby 4.0.3p0
 
 BUNDLED WITH
    2.3.25
