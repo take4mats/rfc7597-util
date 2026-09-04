@@ -15,7 +15,7 @@ group :development, :test do
   gem 'rack-test', '~> 2.2.0'
   gem 'guard', '~> 2.20.0'
   gem 'guard-rspec', '~> 4.7.3'
-  gem 'simplecov', '~> 0.22.0'
+  gem 'simplecov', '~> 1.2.0'
 end
 
 group :production do
