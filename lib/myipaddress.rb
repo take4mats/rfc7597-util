@@ -1,3 +1,7 @@
+# ipaddress 0.8.3 (unmaintained since 2013) still references Fixnum, which was
+# removed from Ruby in 3.2. Restore it as an alias so the gem keeps working.
+Fixnum = Integer unless defined?(Fixnum)
+
 # Monkey-patch for original IPAddress::IPv6 class to achieve 'aggregate' or '+'
 module IPAddress
   require 'ipaddress'

@@ -18,7 +18,7 @@ describe MapeWebApp do
       is_rfc: false
     }
     env = {
-      CONTENT_TYPE: 'application/json'
+      'CONTENT_TYPE' => 'application/json'
     }
     post('/api/provider', JSON.generate(params), env)
     expect(last_response).to be_ok
