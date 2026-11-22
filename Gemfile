@@ -9,7 +9,7 @@ gem 'ipaddress', '~> 0.8.3'
 
 group :development, :test do
   # gem 'dotenv'
-  gem 'puma', '~> 8.0.0'
+  gem 'puma', '~> 8.1.0'
   gem 'rspec', '~> 3.13.0'
   gem 'rspec-its', '~> 2.0.0'
   gem 'rack-test', '~> 2.3.0'
